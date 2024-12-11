@@ -8,10 +8,10 @@ library(stargazer)
 library(tidycensus)
 library(gt)
 
-ufo <- read.csv(file = "/Users/dahyun/Desktop/2024 Fall (4)/ECON 691/R Folder/ECON691_R/Data/scrubbed.csv", header = TRUE, as.is = TRUE, sep = ",")
-st_abb <- read.csv(file = "/Users/dahyun/Desktop/2024 Fall (4)/ECON 691/R Folder/ECON691_R/Data/st_abb.csv")
+ufo <- read.csv(file = "./Data/scrubbed.csv", header = TRUE, as.is = TRUE, sep = ",")
+st_abb <- read.csv(file = "./Data/st_abb.csv")
 #Getting data from IPUMS API
-set_ipums_api_key("59cba10d8a5da536fc06b59d76c2ca1f74714a75880a5c2106855a58", save = TRUE)
+#1set_ipums_api_key("59cba10d8a5da536fc06b59d76c2ca1f74714a75880a5c2106855a58", save = TRUE)
 
 tst <- get_metadata_nhgis("time_series_tables")
 
@@ -134,7 +134,7 @@ ggplot(core) +
   labs(title = "FIgure One: Percentage of Population CL6AA Across the Decades") +
   facet_wrap(~ decade) 
 
-ggsave("/Users/dahyun/Desktop/2024 Fall (4)/ECON 691/R Folder/ECON691_R/graph5.png", dpi = 600)
+ggsave("./Analysis/Output/graph5.png", dpi = 600)
 
 #Race Variable Graphic Visualization
 
@@ -151,7 +151,7 @@ ggplot(core) +
   labs(title = "Figure Two: Percentage of Population B18AD Across the Decades") +
   facet_wrap(~ decade)
 
-ggsave("/Users/dahyun/Desktop/2024 Fall (4)/ECON 691/R Folder/ECON691_R/graph6.png", dpi = 600)
+ggsave("./Analysis/Output/graph6.png", dpi = 600)
 
 
 
@@ -165,7 +165,8 @@ var1 <- c("Percent Under 18", "Percent Over 65", "Percent White", "Percent Black
 
 
 
-stargazer(as.data.frame(core), type = "latex", out = "/Users/dahyun/Desktop/2024 Fall (4)/ECON 691/R Folder/ECON691_R/Table1.txt",
+stargazer(as.data.frame(core), type = "latex", 
+          out = "./Analysis/Output/Table1.txt",
           title = "Table One - Summary Statistics",
           covariate.labels = var1)
           
@@ -191,7 +192,7 @@ stargazer(as.data.frame(core), type = "latex", out = "/Users/dahyun/Desktop/2024
                     omit = ".State.",
                     type = "latex",
                     title = "Table Two - Regression Results",
-                    out = "/Users/dahyun/Desktop/2024 Fall (4)/ECON 691/R Folder/ECON691_R/Table2.txt",
+                    out = "./Analysis/Output/Table2.txt",
                     add.lines=list(c("State F.E.", "No", "No", "Yes" )),
                     dep.var.labels = "LN(Sightings)",
                     covariate.labels=var2)
